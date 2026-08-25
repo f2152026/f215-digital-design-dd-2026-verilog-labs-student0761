@@ -27,6 +27,7 @@ module rca64(
 
   wire [64:0] c;
   assign c[0] = cin;
+  assign cout = c[64];
 
   generate
     for (genvar i = 0; i < 64; i++) begin : gen_fa
