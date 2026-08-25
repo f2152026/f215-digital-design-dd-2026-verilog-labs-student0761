@@ -20,6 +20,14 @@ module cla64_blocked(
 
   wire [15:1] c;   // carries BETWEEN blocks: c[1]..c[15]
 
-  // TODO: your sixteen cla4 instances go here.
+  genvar i;
+  generate
+    for (i = 1; i < 15; i++) begin
+      cla4 ub( .a(a[3+4*i:4*i]), .b(b[3+4*i:4*i]), .cin(c[i]), .sum(sum[3+4*i:4*i]), .cout(c[i+1]) );
+    end
+  endgenerate
+
+  cla4 b0( .a(a[3:0]), .b(b[3:0]), .cin(cin), .sum(sum[3:0]), .cout(c[1]) );
+  cla4 b15(.a(a[63:60]),  .b(b[63:60]),  .cin(c[15]),.sum(sum[63:60]),  .cout(cout));
 
 endmodule
